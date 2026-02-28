@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>AI Mentor Teen — Studio Tạo Prompt</title>
+<link rel="stylesheet" href="../CSS/builder.css"/>
+</head>
+<body>
+<div id="app">
+
+  <!-- ══════════════════════════════════════════ HEADER -->
+  <header class="hd">
+    <div class="hd-brand">
+      <a href="index.html" class="hd-logo">AI<span>Mentor</span><span>Teen</span></a>
+      <p class="hd-sub" id="hd-subtitle">Studio Tạo Prompt</p>
+    </div>
+
+    <nav class="route-tabs" aria-label="Điều hướng Studio">
+      <button class="route-btn active" id="route-literacy-btn" data-route="literacy" type="button">Học AI</button>
+      <button class="route-btn" id="route-builder-btn" data-route="builder" type="button">Trình tạo</button>
+      <button class="route-btn" id="route-progress-btn" data-route="progress" type="button">Tiến độ học AI</button>
+    </nav>
+
+    <div class="hd-actions">
+      <button id="btn-run"   class="btn btn-run" type="button">⚡ Chạy Prompt</button>
+      <button id="btn-ai-settings" class="btn btn-soft" type="button">⚙️ Cài đặt</button>
+      <span id="ai-engine-auto-chip" class="engine-auto-chip" hidden>AI Engine: Auto</span>
+      <button id="btn-submit" class="btn btn-submit" type="button" disabled title="Hãy chọn bài trong tab Học AI">📤 Nộp bài</button>
+      <button id="btn-reset" class="btn" type="button">↺ Làm mới</button>
+      <button id="btn-save"  class="btn" type="button">💾 Lưu nháp</button>
+      <button id="btn-copy"  class="btn" type="button">Copy</button>
+    </div>
+
+    <div class="mode-sw" role="tablist">
+      <button class="mode-btn active" id="mode-student" data-mode="student" type="button">Học sinh</button>
+      <button class="mode-btn"        id="mode-studio"  data-mode="studio"  type="button">Studio</button>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════════ MAIN LAYOUT -->
+  <main class="layout route-view" id="route-builder" data-route-panel="builder">
+
+    <!-- ─── LEFT: Block Library -->
+    <aside class="panel panel-left" id="library-panel" aria-label="Khối lệnh">
+      <div class="panel-title" id="lib-title">Khối lệnh</div>
+      <p class="panel-note" id="lib-note">Bấm vào block để thêm vào Canvas.</p>
+      <div class="mt-2">
+        <label class="label" for="search" id="lib-search-label">Tìm block</label>
+        <input id="search" class="input" type="search" placeholder="Vai trò, bối cảnh, ràng buộc…" autocomplete="off"/>
+      </div>
+      <div class="lib-actions mt-1">
+        <button id="btn-custom-open" class="btn btn-soft" type="button">+ Block tuỳ chỉnh</button>
+      </div>
+      <div id="library" class="lib"></div>
+      <div id="library-delete-dropzone" class="library-delete-dropzone" aria-hidden="true">
+        <div class="library-delete-dropzone__inner">
+          <span class="library-delete-dropzone__icon">✕</span>
+          <span class="library-delete-dropzone__label">Xoá</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ─── CENTER: Canvas + Score + Safety -->
+    <section class="panel panel-center" aria-label="Khung Prompt">
+      <div class="panel-title" id="canvas-title">Khung Prompt</div>
+      <section class="card assignment-banner mt-1" id="assignment-banner" hidden>
+        <div class="assignment-head">
+          <div class="assignment-head-main">
+            <p class="assignment-kicker" id="assignment-kicker">Bài tập hiện tại</p>
+            <div class="assignment-title-row">
+              <h4 id="assignment-title">Đang chờ chọn bài tập</h4>
+              <span class="assignment-domain" id="assignment-domain">Học AI</span>
+            </div>
+            <p class="assignment-snippet" id="assignment-snippet">Chọn bài để bắt đầu.</p>
+          </div>
+          <div class="assignment-status-wrap">
+            <span class="assignment-status" id="assignment-status">Chưa nộp</span>
+            <span class="assignment-time" id="assignment-time">-</span>
+          </div>
+        </div>
+        <div class="assignment-body" id="assignment-body">
+          <div class="assignment-checklist-wrap" id="assignment-checklist-wrap">
+            <p class="assignment-task-label" id="assignment-checklist-label">Tiêu chí đạt</p>
+            <ul class="assignment-checklist" id="assignment-checklist"></ul>
+          </div>
+        </div>
+        <div class="assignment-footer">
+          <div class="assignment-meta" id="assignment-meta" hidden>
+            <span class="assignment-meta-chip">
+              <span class="assignment-meta-label" id="assignment-meta-best-label">Best</span>
+              <strong id="assignment-meta-best">0/100</strong>
+            </span>
+            <span class="assignment-meta-chip">
+              <span class="assignment-meta-label" id="assignment-meta-attempts-label">Attempts</span>
+              <strong id="assignment-meta-attempts">0</strong>
+            </span>
+          </div>
+          <div class="assignment-head-actions">
+            <button class="btn btn-ghost" id="assignment-change-btn" type="button">Đổi bài</button>
+            <button class="btn btn-ghost" id="assignment-hide-btn" type="button">Ẩn đề bài</button>
+          </div>
+        </div>
+      </section>
+      <div id="canvas" class="canvas-zone mt-1" aria-live="polite"></div>
+
+      <div class="mt-2">
+        <label class="label custom-label" for="custom-input">
+          <span class="custom-label-icon">✏</span>
+          <span id="custom-label-main">Nội dung tùy chỉnh</span>
+          <span class="custom-label-optional" id="custom-label-optional">(tùy chọn)</span>
+        </label>
+        <textarea id="custom-input" class="textarea" rows="4"
+          placeholder="Ví dụ: Học sinh lớp 8, cần bài tập ngắn để ôn tư duy phản biện…"></textarea>
+      </div>
+
+      <!-- Prompt Score -->
+      <section class="card score-card" id="score-card">
+        <div class="card-head">
+          <h3 id="score-title">📊 Điểm Prompt</h3>
+          <div class="score-top">
+            <strong id="total-score">0</strong><span class="score-denom">/100</span>
+            <span id="score-band" class="score-band low">Thấp</span>
+          </div>
+        </div>
+        <div class="meter-wrap"><span id="meter-fill" class="meter-fill"></span></div>
+        <div id="crit-list" class="crit-list"></div>
+        <p id="score-summary" class="note">Thêm block để bắt đầu đánh giá chất lượng prompt.</p>
+        <ul id="score-sugg" class="list-reset list-soft mt-1"></ul>
+      </section>
+
+      <!-- Safety Check -->
+      <section class="card safety-card" id="safety-card">
+        <div class="card-head">
+          <h3 id="safety-title">🛡 Kiểm tra an toàn</h3>
+          <span id="safety-badge" class="safety-badge neutral">Đang chờ</span>
+        </div>
+        <div class="safety-meta">
+          <strong id="safety-score-num">0/100</strong>
+          <p id="safety-summary" class="note" style="margin:0">Kiểm tra an toàn sẽ cập nhật khi bạn thêm block.</p>
+        </div>
+        <div id="safety-items" class="safety-items"></div>
+        <h4 class="mini-title" id="safety-suggest-title">Gợi ý cải thiện</h4>
+        <ul id="safety-actions" class="list-reset mt-1"></ul>
+      </section>
+    </section>
+
+    <!-- ─── RIGHT: Preview / Sandbox / Tips -->
+    <aside class="panel panel-right" aria-label="Preview và Output">
+      <section class="card card-preview">
+        <div class="card-head">
+          <h3 id="preview-title">Xem trước prompt</h3>
+          <span id="block-count">0 block</span>
+        </div>
+        <pre id="preview" class="preview-pre">Prompt sẽ xuất hiện tại đây.</pre>
+      </section>
+
+      <section class="card card-sandbox">
+        <div class="card-head">
+          <h3 id="sandbox-title">Đầu ra mô phỏng</h3>
+          <span id="run-state" class="run-state idle">Đang chờ</span>
+        </div>
+        <div id="output" class="sandbox-out idle">Nhấn "Chạy Prompt" để xem phản hồi mẫu.</div>
+      </section>
+
+      <section class="card card-tips">
+        <h3 id="tips-title">💡 Mẹo nhanh</h3>
+        <ul class="list-reset list-soft mt-1">
+          <li id="tips-item-1">Thêm "Ràng buộc" để AI trả lời đúng trọng tâm.</li>
+          <li id="tips-item-2">Có số liệu/dữ kiện → thêm block "Kiểm chứng".</li>
+          <li id="tips-item-3">Nếu dán nội dung từ web, ghi rõ giới hạn nguồn ngoài.</li>
+        </ul>
+      </section>
+    </aside>
+
+  </main>
+
+  <!-- ══════════════════════════════════════════ AI LITERACY -->
+  <section class="literacy route-view active" id="route-literacy" data-route-panel="literacy" aria-label="Học AI">
+    <section class="literacy-main">
+      <aside class="panel lit-left">
+        <div class="panel-title" id="lit-list-title">Danh sách bài học</div>
+        <div class="lit-search mt-1">
+          <label class="lit-search-label" for="lit-search-input">Tìm bài học</label>
+          <div class="lit-search-shell">
+            <span class="lit-search-icon" aria-hidden="true">⌕</span>
+            <input id="lit-search-input" class="lit-search-input" type="search" placeholder="Tìm bài học…" autocomplete="off"/>
+          </div>
+        </div>
+        <section class="filters-card mt-1" aria-label="Bộ lọc bài học">
+          <div class="filter-section">
+            <p class="filter-title">Cấp độ</p>
+            <div id="lit-difficulty-filters" class="segmented" role="tablist" aria-label="Lọc theo cấp độ"></div>
+          </div>
+          <div class="filter-section">
+            <p class="filter-title">Chủ đề</p>
+            <div id="lit-domain-filters" class="topics-grid" aria-label="Lọc theo chủ đề"></div>
+          </div>
+        </section>
+        <div id="lit-lesson-list" class="lit-lesson-list mt-1"></div>
+      </aside>
+
+      <section class="panel lit-right">
+        <div id="lit-detail" class="lit-detail"></div>
+      </section>
+    </section>
+  </section>
+
+  <!-- ══════════════════════════════════════════ PROGRESS -->
+  <section class="progress route-view" id="route-progress" data-route-panel="progress" aria-label="Tiến độ học AI">
+    <section class="card lit-progress">
+      <div class="progress-hero" data-enter="hero">
+        <div class="progress-head-copy">
+          <h3 id="lit-progress-title">Tiến độ học AI</h3>
+          <p class="progress-subtitle" id="lit-progress-subtitle">Tổng quan học + luyện tập + an toàn</p>
+        </div>
+        <div class="progress-hero-chips">
+          <span id="lit-completed-count" class="lit-pill">0/8 bài</span>
+          <span id="lit-updated-chip" class="lit-pill is-muted">Cập nhật: --</span>
+        </div>
+      </div>
+      <p class="progress-updated" id="lit-progress-updated">Last updated: --</p>
+
+      <div class="progress-rail-wrap" data-enter="rail">
+        <div class="progress-rail-track">
+          <span id="lit-progress-rail-fill" class="progress-rail-fill"></span>
+        </div>
+        <span id="lit-progress-rail-label" class="progress-rail-label">0%</span>
+      </div>
+
+      <div class="lit-progress-grid" data-enter="kpi">
+        <article class="lit-kpi kpi-completion">
+          <div class="lit-kpi-head"><p id="lit-kpi-percent-label">Tỷ lệ hoàn thành</p><span class="lit-kpi-icon">◎</span></div>
+          <strong id="lit-kpi-percent">0%</strong>
+          <span id="lit-kpi-percent-trend" class="lit-kpi-trend">Chưa có dữ liệu</span>
+        </article>
+        <article class="lit-kpi kpi-quiz">
+          <div class="lit-kpi-head"><p id="lit-kpi-avg-label">Điểm quiz trung bình</p><span class="lit-kpi-icon">◈</span></div>
+          <strong id="lit-kpi-avg">0/100</strong>
+          <span id="lit-kpi-avg-trend" class="lit-kpi-trend">Chưa có dữ liệu</span>
+        </article>
+        <article class="lit-kpi kpi-practice">
+          <div class="lit-kpi-head"><p id="progress-practice-avg-label">Điểm practice trung bình</p><span class="lit-kpi-icon">▣</span></div>
+          <strong id="progress-practice-avg">0/100</strong>
+          <span id="progress-practice-avg-trend" class="lit-kpi-trend">Chưa có dữ liệu</span>
+        </article>
+        <article class="lit-kpi kpi-best">
+          <div class="lit-kpi-head"><p id="progress-best-score-label">Best score</p><span class="lit-kpi-icon">★</span></div>
+          <strong id="progress-best-score">0</strong>
+          <span id="progress-best-score-trend" class="lit-kpi-trend">Chưa có dữ liệu</span>
+        </article>
+        <article class="lit-kpi kpi-submit">
+          <div class="lit-kpi-head"><p id="progress-submit-count-label">Số lần nộp bài</p><span class="lit-kpi-icon">◉</span></div>
+          <strong id="progress-submit-count">0</strong>
+          <span id="progress-submit-count-trend" class="lit-kpi-trend">Chưa có dữ liệu</span>
+        </article>
+      </div>
+
+      <article class="progress-steps-card" data-enter="completed">
+        <div class="progress-steps-head">
+          <p id="lit-kpi-done-label">Bài đã hoàn thành</p>
+          <button id="lit-done-expand" class="btn btn-ghost progress-steps-expand" type="button" hidden>Xem tất cả</button>
+        </div>
+        <ul id="lit-done-list" class="list-reset lit-done-list">
+          <li>Chưa có bài hoàn thành.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="progress-grid" data-enter="charts">
+      <article class="card chart-card chart-card-donut">
+        <div class="chart-card-head">
+          <div>
+            <h3 id="chart-donut-title">Tỷ lệ hoàn thành bài học</h3>
+            <p class="chart-subtitle" id="chart-donut-subtitle">So sánh bài đã hoàn thành và chưa hoàn thành.</p>
+          </div>
+          <div class="chart-legend" id="chart-donut-legend"></div>
+        </div>
+        <div class="chart-canvas-wrap">
+          <canvas id="progress-donut-chart" width="340" height="240"></canvas>
+        </div>
+        <div class="chart-footer">
+          <p id="chart-donut-insight" class="chart-insight">-</p>
+        </div>
+      </article>
+      <article class="card chart-card chart-card-line">
+        <div class="chart-card-head">
+          <div>
+            <h3 id="chart-line-title">Điểm practice theo thời gian</h3>
+            <p class="chart-subtitle" id="chart-line-subtitle">Theo dõi 12 lần nộp gần nhất.</p>
+          </div>
+          <div class="chart-legend" id="chart-line-legend"></div>
+        </div>
+        <div class="chart-canvas-wrap">
+          <canvas id="progress-line-chart" width="520" height="240"></canvas>
+          <div class="chart-empty-state" id="line-chart-empty" hidden>
+            <div class="chart-empty-icon">◎</div>
+            <p class="chart-empty-title" id="line-chart-empty-title">Chưa đủ dữ liệu</p>
+            <p class="chart-empty-text" id="line-chart-empty-text">Hãy nộp thêm bài để xem biểu đồ tiến bộ.</p>
+            <button class="btn btn-soft chart-empty-action" id="line-chart-go-builder" type="button">Đi nộp bài</button>
+          </div>
+        </div>
+        <div class="chart-footer">
+          <p id="chart-line-insight" class="chart-insight">-</p>
+        </div>
+      </article>
+      <article class="card chart-card chart-card-domain">
+        <div class="chart-card-head">
+          <div>
+            <h3 id="chart-domain-title">Điểm trung bình theo domain</h3>
+            <p class="chart-subtitle" id="chart-domain-subtitle">So sánh chất lượng practice giữa 4 domain.</p>
+          </div>
+          <div class="chart-legend" id="chart-domain-legend"></div>
+        </div>
+        <div class="chart-canvas-wrap">
+          <canvas id="progress-domain-chart" width="520" height="240"></canvas>
+        </div>
+        <div class="chart-footer">
+          <p id="chart-domain-insight" class="chart-insight">-</p>
+        </div>
+      </article>
+      <article class="card chart-card chart-card-safety">
+        <div class="chart-card-head">
+          <div>
+            <h3 id="chart-safety-title">PASS/WARN/FAIL an toàn</h3>
+            <p class="chart-subtitle" id="chart-safety-subtitle">Tổng hợp trạng thái an toàn theo từng domain.</p>
+          </div>
+          <div class="chart-legend" id="chart-safety-legend"></div>
+        </div>
+        <div class="chart-canvas-wrap">
+          <canvas id="progress-safety-chart" width="520" height="240"></canvas>
+        </div>
+        <div class="chart-footer">
+          <p id="chart-safety-insight" class="chart-insight">-</p>
+        </div>
+      </article>
+      <article class="card chart-card chart-card-insights">
+        <div class="chart-card-head">
+          <div>
+            <h3 id="progress-insights-title">Gợi ý cải thiện</h3>
+            <p class="chart-subtitle" id="progress-insights-subtitle">Từ dữ liệu học tập hiện tại</p>
+          </div>
+        </div>
+        <div class="chart-canvas-wrap">
+          <ul id="progress-insights-list" class="list-reset progress-insights-list">
+            <li>Chưa có đủ dữ liệu để tạo gợi ý.</li>
+          </ul>
+        </div>
+        <div class="chart-footer">
+          <p id="progress-insights-foot" class="chart-insight">Cập nhật theo mỗi lần nộp bài.</p>
+        </div>
+      </article>
+    </section>
+  </section>
+
+  <div id="lit-done-modal" class="modal-backdrop" hidden aria-hidden="true">
+    <section class="modal-card done-modal-card" role="dialog" aria-modal="true" aria-labelledby="lit-done-modal-title">
+      <header class="modal-head">
+        <h3 id="lit-done-modal-title">Danh sách bài đã hoàn thành</h3>
+        <button id="lit-done-modal-close" class="modal-close" type="button" aria-label="Đóng">✕</button>
+      </header>
+      <div class="modal-form done-modal-body">
+        <ul id="lit-done-modal-list" class="list-reset done-modal-list"></ul>
+      </div>
+      <footer class="modal-actions">
+        <button id="lit-done-modal-close-btn" class="btn" type="button">Đóng</button>
+      </footer>
+    </section>
+  </div>
+
+  <div id="ai-settings-modal" class="modal-backdrop" hidden aria-hidden="true">
+    <section class="modal-card ai-settings-card" role="dialog" aria-modal="true" aria-labelledby="ai-settings-title">
+      <header class="modal-head">
+        <h3 id="ai-settings-title">Cài đặt AI</h3>
+        <button id="ai-settings-close" class="modal-close" type="button" aria-label="Đóng">✕</button>
+      </header>
+
+      <form id="ai-settings-form" class="modal-form ai-settings-form" novalidate>
+        <label class="label modal-field">
+          <span id="ai-provider-label">Provider</span>
+          <div id="ai-provider-dd" class="dd-host" aria-label="AI Provider"></div>
+          <input id="ai-provider" type="hidden" value="mock"/>
+        </label>
+
+        <div id="ai-openrouter-fields" class="ai-provider-fields">
+          <label class="label modal-field">
+            <span id="ai-or-key-label">OpenRouter API Key</span>
+            <input id="ai-openrouter-key" class="input" type="password" placeholder="sk-or-..." autocomplete="off"/>
+          </label>
+          <label class="label modal-field">
+            <div class="ai-model-row">
+              <span id="ai-or-model-label">Model</span>
+              <button id="ai-model-suggest-btn" class="btn btn-soft btn-mini" type="button">Gợi ý model</button>
+            </div>
+            <input id="ai-openrouter-model" class="input" type="text" placeholder="openai/gpt-4o-mini" autocomplete="off"/>
+          </label>
+          <div id="ai-model-picker" class="ai-model-picker" hidden>
+            <input id="ai-model-search" class="input ai-model-search" type="search" placeholder="Tìm model..." autocomplete="off"/>
+            <div id="ai-model-list" class="ai-model-list"></div>
+            <p id="ai-model-status" class="muted ai-model-status">Bấm "Gợi ý model" để tải danh sách.</p>
+          </div>
+          <label class="label modal-field">
+            <span id="ai-or-base-label">Base URL</span>
+            <input id="ai-openrouter-base" class="input" type="text" placeholder="https://openrouter.ai/api/v1" autocomplete="off"/>
+          </label>
+        </div>
+
+        <div id="ai-local-fields" class="ai-provider-fields">
+          <label class="label modal-field">
+            <span id="ai-local-base-label">Local Base URL</span>
+            <input id="ai-local-base" class="input" type="text" placeholder="http://localhost:11434" autocomplete="off"/>
+          </label>
+          <label class="label modal-field">
+            <span id="ai-local-model-label">Model</span>
+            <input id="ai-local-model" class="input" type="text" placeholder="llama3.1" autocomplete="off"/>
+          </label>
+          <label class="label modal-field">
+            <span id="ai-local-endpoint-label">Endpoint type</span>
+            <div id="ai-local-endpoint-dd" class="dd-host" aria-label="Local endpoint type"></div>
+            <input id="ai-local-endpoint" type="hidden" value="ollama_native"/>
+          </label>
+        </div>
+
+        <p class="muted ai-settings-note" id="ai-settings-note">Mock luôn khả dụng làm fallback khi lỗi mạng/CORS.</p>
+
+        <footer class="modal-actions">
+          <button id="ai-settings-cancel" class="btn" type="button">Huỷ</button>
+          <button id="ai-settings-test" class="btn btn-soft" type="button">Test connection</button>
+          <button id="ai-settings-save" class="btn btn-run" type="button">Lưu cài đặt</button>
+        </footer>
+      </form>
+    </section>
+  </div>
+
+  <div id="custom-modal" class="modal-backdrop" hidden aria-hidden="true">
+    <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="custom-modal-title">
+      <header class="modal-head">
+        <h3 id="custom-modal-title">Tạo block tuỳ chỉnh</h3>
+        <button id="custom-modal-close" class="modal-close" type="button" aria-label="Đóng">✕</button>
+      </header>
+
+      <form id="custom-form" class="modal-form" novalidate>
+        <input type="hidden" id="custom-id"/>
+        <div class="modal-grid">
+          <label class="label modal-field">
+            Tên block
+            <input id="custom-name" class="input" type="text" maxlength="56" placeholder="Ví dụ: Vai trò gia sư Toán"/>
+          </label>
+          <label class="label modal-field">
+            Loại
+            <div id="custom-type-dd" class="dd-host" aria-label="Loại block"></div>
+            <input id="custom-type" type="hidden" value="ROLE"/>
+          </label>
+        </div>
+
+        <label class="label modal-field">
+          Mô tả ngắn
+          <input id="custom-desc" class="input" type="text" maxlength="90" placeholder="Mô tả ngắn để dễ quét nhanh"/>
+        </label>
+
+        <label class="label modal-field">
+          Nội dung template
+          <textarea id="custom-content" class="textarea" rows="5" placeholder="Bạn là gia sư {topic} cho học sinh lớp {grade}, giọng điệu {tone}..."></textarea>
+        </label>
+        <p id="custom-required-note" class="custom-required-note">⚠ Vui lòng nhập đủ: Tên block, Loại block, Nội dung template.</p>
+        <p id="custom-validation-msg" class="custom-validation-msg" hidden></p>
+
+        <fieldset class="modal-colors">
+          <legend class="label">Màu accent</legend>
+          <label class="color-chip">
+            <input type="radio" name="custom-accent" value="auto" checked>
+            <span>Tự động theo loại</span>
+          </label>
+          <label class="color-chip"><input type="radio" name="custom-accent" value="#9f7bff"><span>Màu tím</span></label>
+          <label class="color-chip"><input type="radio" name="custom-accent" value="#49c5ff"><span>Màu xanh dương</span></label>
+          <label class="color-chip"><input type="radio" name="custom-accent" value="#ffd84d"><span>Màu vàng</span></label>
+          <label class="color-chip"><input type="radio" name="custom-accent" value="#ff73c7"><span>Màu hồng</span></label>
+          <label class="color-chip"><input type="radio" name="custom-accent" value="#54e1d6"><span>Màu xanh ngọc</span></label>
+        </fieldset>
+
+        <footer class="modal-actions">
+          <button id="custom-cancel" class="btn" type="button">Huỷ</button>
+          <button id="custom-save" class="btn btn-run" type="submit">Lưu block</button>
+        </footer>
+      </form>
+    </section>
+  </div>
+</div>
+<div id="chart-tooltip" class="chart-tooltip" hidden></div>
+<script src="../JS/builder.js"></script>
+</body>
+</html>
