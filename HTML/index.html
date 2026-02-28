@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Mentor Teen – Làm chủ AI, không để AI làm chủ mình</title>
+
+  <!-- Google Fonts: Be Vietnam Pro -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../CSS/styles.css" />
+</head>
+<body>
+
+  <!-- ===== PARTICLES ===== -->
+  <canvas id="particles"></canvas>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo">
+        <span class="logo-icon">⚡</span>
+        <span>AI<span class="accent">Mentor</span><span class="accent2">Teen</span></span>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#hero"        class="nav-link">Trang chủ</a></li>
+        <li><a href="#features"    class="nav-link">Tính năng</a></li>
+        <li><a href="#core-values" class="nav-link">Giá trị cốt lõi</a></li>
+        <li><a href="#scaffolding" class="nav-link">Quy trình AI</a></li>
+        <li><a href="#sandbox"     class="btn-sandbox">🤖 AI Sandbox</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-glow glow-left"></div>
+    <div class="hero-glow glow-right"></div>
+
+    <div class="hero-content">
+
+      <!-- Nhãn trên headline -->
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        ✨ Nền tảng học AI dành cho học sinh từ 10 - 18 tuổi
+      </div>
+
+      <!-- Headline chính -->
+      <h1 class="hero-title">
+        Làm chủ <span class="word-ai">AI</span>,<br />
+        <span class="gradient-text animated-gradient">không để AI<br />làm chủ mình</span>
+      </h1>
+
+      <!-- Mô tả ngắn -->
+      <p class="hero-sub">
+        AI Mentor Teen trang bị cho bạn tư duy phản biện, kỹ năng đặt câu hỏi
+        và sự tự tin để điều hướng thế giới AI một cách
+        <strong>an toàn &amp; thông minh</strong>.
+      </p>
+
+      <!-- Nút CTA -->
+      <div class="hero-cta">
+        <a href="#sandbox" class="btn btn-primary">
+          <span class="btn-shine"></span>
+          🚀 Bắt đầu học AI tại đây
+        </a>
+        <a href="#scaffolding" class="btn btn-outline">
+          Xem lộ trình học AI
+        </a>
+      </div>
+
+      <!-- Stats – 4 item trên 1 hàng ngang -->
+      <div class="hero-stats">
+
+        <div class="stat">
+          <div class="stat-num-row">
+            <span class="stat-num" data-target="500">0</span>
+            <span class="stat-plus">+</span>
+          </div>
+          <span class="stat-label">Học sinh</span>
+        </div>
+
+        <div class="stat-divider"></div>
+
+        <div class="stat">
+          <div class="stat-num-row">
+            <span class="stat-num" data-target="4">0</span>
+          </div>
+          <span class="stat-label">Năng lực cốt lõi</span>
+        </div>
+
+        <div class="stat-divider"></div>
+
+        <div class="stat">
+          <div class="stat-num-row">
+            <span class="stat-num" data-target="3">0</span>
+          </div>
+          <span class="stat-label">Giai đoạn học tập</span>
+        </div>
+
+        <div class="stat-divider"></div>
+
+        <div class="stat">
+          <div class="stat-num-row">
+            <span class="stat-num" data-target="100">0</span>
+            <span class="stat-plus">%</span>
+          </div>
+          <span class="stat-label">An toàn</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Card chat nổi bên phải -->
+    <div class="hero-visual">
+      <div class="floating-card">
+        <div class="card-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="card-title">Socratic Mentor 🦉</span>
+        </div>
+        <div class="chat-bubble ai">
+          🤖 Bạn muốn AI làm <em>thay</em> hay làm <em>cùng</em> bạn?
+        </div>
+        <div class="chat-bubble user">
+          💡 Mình muốn tự nghĩ trước, rồi mới hỏi AI!
+        </div>
+        <div class="chat-bubble ai">
+          ✅ Đó chính là tư duy của người làm chủ AI 🎉
+        </div>
+        <div class="typing-indicator">
+          <span></span><span></span><span></span>
+          <span class="typing-text">AI đang suy nghĩ...</span>
+        </div>
+      </div>
+
+      <div class="float-badge badge-tl">🛡️ An toàn</div>
+      <div class="float-badge badge-br">🧠 Tư duy</div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES ===== -->
+  <section class="features" id="features">
+    <div class="container">
+
+      <div class="section-header fade-in">
+        <span class="section-tag">Tính năng nổi bật</span>
+        <h2>Học nhanh với bộ công cụ <span class="gradient-text">đúng trọng tâm</span></h2>
+        <p>Ít chữ hơn, nhiều thực hành hơn, phản hồi rõ ràng hơn</p>
+      </div>
+
+      <!-- Grid 4 card – CSS tự đẩy bullet list xuống đáy -->
+      <div class="features-grid">
+
+        <!-- Card 1 -->
+        <div class="feature-card fade-in" data-delay="0">
+          <div class="feature-icon-wrap purple">
+            <span class="feature-icon">📚</span>
+          </div>
+          <h3>Hiểu AI không cần code</h3>
+          <p>Nắm cách AI đọc đề, suy luận và tạo phản hồi chỉ trong các bài ngắn.</p>
+          <ul class="feature-list">
+            <li>Bài học 5-10 phút</li>
+            <li>Quiz kiểm tra nhanh</li>
+            <li>Huy hiệu theo tiến bộ</li>
+          </ul>
+          <div class="card-glow purple-glow"></div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="feature-card fade-in" data-delay="100">
+          <div class="feature-icon-wrap cyan">
+            <span class="feature-icon">🧩</span>
+          </div>
+          <h3>Viết prompt rõ, đúng ý</h3>
+          <p>Thử kéo thả cấu trúc câu hỏi và nhận phản hồi tức thì để tối ưu prompt.</p>
+          <ul class="feature-list">
+            <li>Kéo thả trực quan</li>
+            <li>Feedback tức thì</li>
+            <li>So sánh prompt tốt/xấu</li>
+          </ul>
+          <div class="card-glow cyan-glow"></div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="feature-card fade-in" data-delay="200">
+          <div class="feature-icon-wrap green">
+            <span class="feature-icon">🛡️</span>
+          </div>
+          <h3>Thử sai trong vùng an toàn</h3>
+          <p>Mọi thực hành diễn ra trong môi trường kiểm soát để bạn học qua sai lầm.</p>
+          <ul class="feature-list">
+            <li>Lọc nội dung thông minh</li>
+            <li>Bảo mật dữ liệu</li>
+            <li>Minh bạch với phụ huynh</li>
+          </ul>
+          <div class="card-glow green-glow"></div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="feature-card fade-in" data-delay="300">
+          <div class="feature-icon-wrap orange">
+            <span class="feature-icon">🦉</span>
+          </div>
+          <h3>AI gợi mở, không làm hộ</h3>
+          <p>Mentor hỏi ngược đúng lúc để bạn tự nghĩ sâu trước khi nhận gợi ý.</p>
+          <ul class="feature-list">
+            <li>Hỏi kiểu Socratic</li>
+            <li>Theo dõi tiến trình tư duy</li>
+            <li>Gợi ý khi bạn bị bí</li>
+          </ul>
+          <div class="card-glow orange-glow"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CORE VALUES ===== -->
+  <section class="core-values" id="core-values">
+    <div class="container">
+
+      <div class="section-header fade-in">
+        <span class="section-tag">Giá trị cốt lõi</span>
+        <h2>4 Năng lực <span class="gradient-text">bạn sẽ có</span></h2>
+        <p>Những kỹ năng bền vững theo bạn suốt cuộc đời, không chỉ trong trường học</p>
+      </div>
+
+      <div class="values-grid">
+
+        <div class="value-card fade-in" data-delay="0">
+          <div class="value-top">
+            <div class="value-number">01</div>
+            <div class="value-icon-circle">🧠</div>
+          </div>
+          <h3>Tư duy phản biện</h3>
+          <p>Không tin mù quáng vào AI – biết đặt câu hỏi, kiểm chứng và đánh giá thông tin.</p>
+          <div class="value-progress">
+            <div class="progress-bar" data-width="92"></div>
+          </div>
+          <span class="progress-label">Quan trọng nhất</span>
+        </div>
+
+        <div class="value-card fade-in" data-delay="100">
+          <div class="value-top">
+            <div class="value-number">02</div>
+            <div class="value-icon-circle">💬</div>
+          </div>
+          <h3>Giao tiếp AI hiệu quả</h3>
+          <p>Biết cách diễn đạt ý tưởng rõ ràng để AI hiểu đúng ý bạn muốn nói.</p>
+          <div class="value-progress">
+            <div class="progress-bar" data-width="85"></div>
+          </div>
+          <span class="progress-label">Kỹ năng thực tiễn</span>
+        </div>
+
+        <div class="value-card fade-in" data-delay="200">
+          <div class="value-top">
+            <div class="value-number">03</div>
+            <div class="value-icon-circle">🔒</div>
+          </div>
+          <h3>An toàn kỹ thuật số</h3>
+          <p>Bảo vệ thông tin cá nhân, nhận biết rủi ro và dùng AI có trách nhiệm.</p>
+          <div class="value-progress">
+            <div class="progress-bar" data-width="88"></div>
+          </div>
+          <span class="progress-label">Bảo vệ bản thân</span>
+        </div>
+
+        <div class="value-card fade-in" data-delay="300">
+          <div class="value-top">
+            <div class="value-number">04</div>
+            <div class="value-icon-circle">🚀</div>
+          </div>
+          <h3>Sáng tạo với AI</h3>
+          <p>Dùng AI như công cụ khuếch đại ý tưởng – không thay thế sự sáng tạo của bạn.</p>
+          <div class="value-progress">
+            <div class="progress-bar" data-width="78"></div>
+          </div>
+          <span class="progress-label">Tương lai nghề nghiệp</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SCAFFOLDING ===== -->
+  <section class="scaffolding" id="scaffolding">
+    <div class="container">
+
+      <div class="section-header fade-in">
+        <span class="section-tag">Lộ trình học tập</span>
+        <h2>3 Giai đoạn <span class="gradient-text">Scaffolding</span></h2>
+        <p>Từ người mới → thực hành → tự chủ, mỗi giai đoạn có mục tiêu và tiêu chí rõ ràng.</p>
+      </div>
+
+      <div class="timeline">
+
+        <div class="timeline-item fade-in" data-delay="0">
+          <div class="timeline-left">
+            <div class="timeline-dot dot-purple">1</div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-panel">
+              <div class="timeline-badge badge-purple">Giai đoạn 1 · 1–2 tuần</div>
+              <h3>Khám phá có hướng dẫn</h3>
+              <p><strong>Mục tiêu:</strong> Hiểu cấu trúc prompt cơ bản và cách hỏi để học, không xin đáp án.</p>
+              <p><strong>Hoạt động:</strong> Học bài ngắn + làm mini quiz + ghép prompt bằng block có sẵn.</p>
+              <p><strong>Đầu ra/KPI:</strong> Quiz ≥ 80, Prompt Score ≥ 60.</p>
+              <div class="timeline-tags">
+                <span>Quan sát</span>
+                <span>Đặt câu hỏi</span>
+                <span>Ghép prompt cơ bản</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item fade-in" data-delay="150">
+          <div class="timeline-left">
+            <div class="timeline-dot dot-cyan">2</div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-panel">
+              <div class="timeline-badge badge-cyan">Giai đoạn 2 · 2–3 tuần</div>
+              <h3>Thực hành có hỗ trợ</h3>
+              <p><strong>Mục tiêu:</strong> Biết sửa prompt theo tiêu chí và kiểm tra an toàn.</p>
+              <p><strong>Hoạt động:</strong> Làm bài thực hành → chạy thử → chỉnh prompt → nộp bài.</p>
+              <p><strong>Đầu ra/KPI:</strong> Score ≥ 70, Safety không FAIL, có lịch sử nộp.</p>
+              <div class="timeline-tags">
+                <span>Sửa theo rubric</span>
+                <span>Safety Check</span>
+                <span>Nộp bài</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item fade-in" data-delay="300">
+          <div class="timeline-left">
+            <div class="timeline-dot dot-gold">3</div>
+            <!-- Không có timeline-line vì đây là item cuối -->
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-panel">
+              <div class="timeline-badge badge-gold">Giai đoạn 3 · Dài hạn</div>
+              <h3>Tự chủ hoàn toàn</h3>
+              <p><strong>Mục tiêu:</strong> Tự thiết kế prompt cho nhu cầu riêng và theo dõi tiến bộ.</p>
+              <p><strong>Hoạt động:</strong> Tạo block tùy chỉnh + làm dự án nhỏ + xem dashboard tiến độ.</p>
+              <p><strong>Đầu ra/KPI:</strong> Best Score tăng theo thời gian, hoàn thành bài học tăng.</p>
+              <div class="timeline-tags">
+                <span>Block tùy chỉnh</span>
+                <span>Dự án cá nhân</span>
+                <span>Dashboard tiến độ</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SANDBOX CTA ===== -->
+  <section class="sandbox-cta" id="sandbox">
+    <div class="container">
+      <div class="sandbox-box fade-in">
+        <div class="sandbox-orb orb-1"></div>
+        <div class="sandbox-orb orb-2"></div>
+        <div class="sandbox-orb orb-3"></div>
+        <div class="sandbox-content">
+          <span class="section-tag">🤖 AI Sandbox</span>
+          <h2>Sẵn sàng thử nghiệm
+            <span class="gradient-text animated-gradient">chưa?</span>
+          </h2>
+          <p>Vào ngay AI Sandbox để luyện prompt, phản biện và an toàn số mỗi ngày</p>
+          <a href="builder.html" class="btn btn-primary btn-large">
+            <span class="btn-shine"></span>
+            🚀 Mở AI Sandbox
+          </a>
+          <div class="sandbox-badges">
+            <span>✅ Không cần đăng ký</span>
+            <span>✅ Miễn phí</span>
+            <span>✅ An toàn 100%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+
+        <div class="footer-brand">
+          <a href="#" class="nav-logo">
+            <span class="logo-icon">⚡</span>
+            <span>AI<span class="accent">Mentor</span><span class="accent2">Teen</span></span>
+          </a>
+          <p>Trao quyền cho thế hệ trẻ Việt Nam<br />làm chủ công nghệ AI.</p>
+          <div class="social-links">
+            <a href="https://www.facebook.com/dsg.global2025" target="_blank" rel="noopener noreferrer" class="social-btn social-btn-fb" aria-label="Facebook DSG Global 2025">
+              <span class="social-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" role="img" focusable="false">
+                  <path d="M13.5 22V12.9h3.1l.5-3.5h-3.6V7.2c0-1 .3-1.7 1.8-1.7H17V2.4c-.3 0-1.4-.1-2.6-.1-2.6 0-4.4 1.6-4.4 4.5v2.5H7v3.5h3V22h3.5z"/>
+                </svg>
+              </span>
+              <span>Facebook</span>
+            </a>
+            <a href="https://www.instagram.com/dsg.global2025" target="_blank" rel="noopener noreferrer" class="social-btn social-btn-ig" aria-label="Instagram DSG Global 2025">
+              <span class="social-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" role="img" focusable="false">
+                  <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2.2A2.8 2.8 0 0 0 4.2 7v10A2.8 2.8 0 0 0 7 19.8h10a2.8 2.8 0 0 0 2.8-2.8V7A2.8 2.8 0 0 0 17 4.2H7zm10.5 1.6a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2.2a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 0 0 0-5.6z"/>
+                </svg>
+              </span>
+              <span>Instagram</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-links">
+          <h4>Điều hướng</h4>
+          <a href="#hero">Trang chủ</a>
+          <a href="#features">Tính năng</a>
+          <a href="#core-values">Giá trị cốt lõi</a>
+          <a href="#scaffolding">Quy trình học</a>
+        </div>
+
+        <div class="footer-links">
+          <h4>Liên hệ</h4>
+          <a href="#">📩 dsg.global2025@gmail.com</a>
+          <a href="#">🌐 aitmentorteen.vn</a>
+          <a href="#">📞 Hỗ trợ 24/7</a>
+        </div>
+
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 AI Mentor Teen · Được tạo bởi học sinh, dành cho học sinh 💜</p>
+        <p class="footer-tagline">Làm chủ AI – không để AI làm chủ mình ⚡</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../JS/script.js"></script>
+</body>
+</html>
